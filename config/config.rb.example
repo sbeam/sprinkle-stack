@@ -15,4 +15,6 @@ CONFIG = {
   }
 }
 
+REE_PATH = "/usr/local/ruby-enterprise"
+PASSENGER_VERSION = '3.0.9'
 USER_TO_ADD = 'deploy'
