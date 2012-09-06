@@ -4,7 +4,7 @@ package :resque do
   description 'Resque, Redis-based job processing queue'
   
   gem 'resque' do
-    post :install, "ln -sf #{REE_PATH}/bin/resque /usr/local/bin/resque"
+    post :install, "ln -sf #{RUBY_INSTALL[:path]}/bin/resque /usr/local/bin/resque"
   end
   
   transfer(
@@ -22,6 +22,6 @@ package :resque do
   end
   
   requires :redis
-  requires :ruby_enterprise
+  requires :ruby
   requires :monit
 end

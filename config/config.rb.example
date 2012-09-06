@@ -15,6 +15,9 @@ CONFIG = {
   }
 }
 
-REE_PATH = "/usr/local/ruby-enterprise"
-PASSENGER_VERSION = '3.0.9'
-USER_TO_ADD = 'deploy'
+VHOST = { :site_name => 'example.com',
+          :deploy_user => 'examplecom'
+        }
+USER_TO_ADD = 'examplecom'
+
+RUBY_INSTALL = { :path => '/usr/local/ruby', :version => '1.9.3-p194' }

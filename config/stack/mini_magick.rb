@@ -3,12 +3,12 @@ require File.join(File.dirname(__FILE__), '../config.rb')
 package :mini_magick do
   description "Allows manipulation of image files from Ruby/Rails"
   gem 'mini_magick'
-  
+
   verify do
     has_gem 'mini_magick'
   end
-  
-  requires :ruby_enterprise
+
+  requires :ruby_build
   requires :image_magick
 end
 

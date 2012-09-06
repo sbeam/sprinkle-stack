@@ -10,9 +10,9 @@ policy :rails_stack, :roles => :app do
   requires :user
   requires :iptables_appserver
   # Web / app stack
-  requires :ruby_enterprise # Ruby Enterprise Edition
-  requires :webserver # Apache
-  requires :appserver # Passenger
+  requires :ruby_build
+  requires :nginx # :apache
+  #requires :appserver # Passenger
   # Mysql Client
   requires :database_client
   # Support apps
@@ -48,7 +48,7 @@ deployment do
       recipes 'deploy'
     end
   end
- 
+
   # source based package installer defaults
   source do
     prefix   '/usr/local'

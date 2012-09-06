@@ -45,5 +45,5 @@ package :mysql_driver, :provides => :ruby_database_driver do
     has_gem 'mysql2'
   end
   
-  requires :ruby_enterprise
+  requires :ruby
 end

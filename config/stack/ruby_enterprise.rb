@@ -1,11 +1,11 @@
 require File.join(File.dirname(__FILE__), '../config.rb')
 
-package :ruby_enterprise do
+package :ruby_enterprise, :provides => :ruby do
   description 'Ruby Enterprise Edition'
   binaries = %w(erb gem irb rackup rails rake rdoc ree-version ri ruby testrb)
   source "http://rubyenterpriseedition.googlecode.com/files/ruby-enterprise-1.8.7-2011.03.tar.gz" do
     custom_install 'sudo ./installer --auto=/usr/local/ruby-enterprise'
-    binaries.each {|bin| post :install, "ln -sf #{REE_PATH}/bin/#{bin} /usr/local/bin/#{bin}" }
+    binaries.each {|bin| post :install, "ln -sf #{RUBY_INSTALL[:path]}/bin/#{bin} /usr/local/bin/#{bin}" }
     # Rebuild all gems in case we updated to a newer version of Ruby
     post :install, "gem update --system"
     post :install, "gem pristine --all"
@@ -18,9 +18,9 @@ package :ruby_enterprise do
 
   verify do
     has_executable_with_version(
-      "#{REE_PATH}/bin/ruby", "Ruby Enterprise Edition 2011.03"
+      "#{RUBY_INSTALL[:path]}/bin/ruby", "Ruby Enterprise Edition 2011.03"
     )
-    binaries.each {|bin| has_symlink "/usr/local/bin/#{bin}", "#{REE_PATH}/bin/#{bin}" }
+    binaries.each {|bin| has_symlink "/usr/local/bin/#{bin}", "#{RUBY_INSTALL[:path]}/bin/#{bin}" }
   end
 
   requires :ree_dependencies
