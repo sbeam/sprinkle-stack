@@ -1,3 +1,5 @@
+# rename this file to config.rb and modify as needed
+
 ENVIRONMENT = :production
 
 CONFIG = {
