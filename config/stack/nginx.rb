@@ -15,9 +15,20 @@ package :nginx, :provides => :webserver do
 end
 
 package :nginx_config do
+  # TODO contains SSL settings, allow optional non-SSL version
+  nginx_conf = "/etc/nginx/nginx.conf"
+  nginx_errors_conf = "/etc/nginx/nginx_errors.conf"
   site_conf = "/etc/nginx/sites-available/#{VHOST[:site_name]}"
 
-  # Create the passenger conf file
+  transfer(
+    File.join(File.dirname(__FILE__), 'files/nginx.conf'),
+    nginx_conf
+  )
+  transfer(
+    File.join(File.dirname(__FILE__), 'files/nginx_errors.conf'),
+    nginx_errors_conf
+  )
+
   transfer(
     File.join(File.dirname(__FILE__), 'files/nginx-thin-proxy.config'),
     site_conf,
@@ -25,5 +36,6 @@ package :nginx_config do
   ) do
     post :install, '/etc/init.d/nginx restart'
   end
+
 end
 
