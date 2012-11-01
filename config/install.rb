@@ -24,7 +24,7 @@ policy :rails_stack, :roles => :app do
   requires :mini_magick
   requires :rails_log_analyzer
   requires :resque
-  requires :gitolite
+  #requires :gitolite
 end
 
 policy :db_stack, :roles => :db do
