@@ -18,7 +18,7 @@ package :apache, :provides => :webserver do
   end
 
   requires :build_essential
-  optional :apache_etag_support, :apache_deflate_support, :apache_expires_support
+  optional :apache_etag_support, :apache_deflate_support, :apache_expires_support, :passenger_config
 end
 
 package :apache2_prefork_dev do
@@ -29,11 +29,11 @@ package :apache2_prefork_dev do
   end
 end
 
-package :passenger, :provides => :appserver do
+package :passenger_apache, :provides => :appserver do
   description 'Phusion Passenger (mod_rails)'
   binaries = %w(passenger-config passenger-install-nginx-module passenger-install-apache2-module passenger-make-enterprisey passenger-memory-stats passenger-spawn-server passenger-status passenger-stress-test)
-  
-  gem 'passenger', :version => RUBY_INSTALL[:passenger_version] do    
+
+  gem 'passenger', :version => RUBY_INSTALL[:passenger_version] do
     binaries.each {|bin| post :install, "ln -sf #{RUBY_INSTALL[:path]}/bin/#{bin} /usr/local/bin/#{bin}"}
     post :install, 'echo -en "\n\n\n\n" | sudo passenger-install-apache2-module'
     # Restart apache to note changes

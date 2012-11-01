@@ -12,7 +12,7 @@ policy :rails_stack, :roles => :app do
   # Web / app stack
   requires :ruby_build
   requires :nginx # :apache
-  #requires :appserver # Passenger
+  requires :appserver # Passenger
   # Mysql Client
   requires :database_client
   # Support apps
