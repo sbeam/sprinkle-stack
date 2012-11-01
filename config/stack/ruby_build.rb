@@ -2,12 +2,15 @@ require File.join(File.dirname(__FILE__), '../config.rb')
 
 package :ruby_build, :provides => :ruby do
   description 'Ruby'
-  source "https://github.com/sstephenson/ruby-build/tarball/master" do
+  source "https://github.com/sstephenson/ruby-build/tarball/v20121022" do
+    custom_archive 'sstephenson-ruby-build-14dc5d6.tar.gz'
 
     custom_install 'sudo ./install.sh'
 
     post :install do
-        "./ruby-build #{RUBY_INSTALL[:version]} /usr/local/ruby-#{RUBY_INSTALL[:version]}"
+        %Q|./bin/ruby-build #{RUBY_INSTALL[:version]} /usr/local/ruby-#{RUBY_INSTALL[:version]}
+            && ln -s /usr/local/ruby-#{RUBY_INSTALL[:version]} /usr/local/ruby |
+
     end
 
   end
