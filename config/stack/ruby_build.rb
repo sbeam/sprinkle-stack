@@ -25,8 +25,10 @@ package :ruby_build, :provides => :ruby do
 end
 
 package :ruby_build_dependencies do
-  build_libs = %w(bison file libssl-dev libreadline5-dev libxml2 libxml2-dev libncurses5-dev
-                  libxslt1-dev readline-common openssl zlib1g zlib1g-dev)
+ #build_libs = %w(bison file libssl-dev libreadline5-dev libxml2 libxml2-dev libncurses5-dev
+ #                libxslt1-dev readline-common openssl zlib1g zlib1g-dev)
+  build_libs = %w(libssl-dev libreadline-gplv2-dev libxml2 libxml2-dev libxslt1-dev
+                   readline-common openssl zlib1g zlib1g-dev make gcc autoconf libtool file curl libcurl4-openssl-dev)
   apt build_libs
   verify { build_libs.each { |pkg| has_apt pkg } }
   requires :build_essential
