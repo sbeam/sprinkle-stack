@@ -30,20 +30,24 @@ package :user_install_ssh_key do
       ]
     end
   end
-  
+
   verify { has_file "#{user_ssh_path}/authorized_keys" }
 end
 
 package :user_allow_sudo do
   description "Allow added user to perform sudo commands"
-  
-  sudo_conf = '/etc/sudoers'
+
+  sudo_conf = '/etc/sudoers.d/10-wheel'
   sudo_config = %Q\
-# Allow #{USER_TO_ADD} user sudo
-deploy ALL=NOPASSWD: ALL
+# Allow users in group wheel to do without password
+# added by sprinkle :user_allow_sudo task
+%wheel  ALL=NOPASSWD: ALL
   \
 
-  push_text sudo_config, sudo_conf  
-  
+  push_text sudo_config, sudo_conf
+  post :install do
+      [ "chmod 0440 /etc/sudoers.d/10-wheel" ]
+  end
+
   verify { file_contains sudo_conf, "Allow #{USER_TO_ADD} user sudo" }
 end
