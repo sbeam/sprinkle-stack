@@ -50,17 +50,17 @@ package :passenger, :provides => :appserver do
 end
 
 package :passenger_config do
-  passenger_conf = '/etc/apache2/mods-enabled/passenger.conf' 
+  passenger_conf = '/etc/apache2/mods-enabled/passenger.conf'
 
   # Create the passenger conf file
   transfer(
-    File.join(File.dirname(__FILE__), 'files/apache-passenger.config'), 
+    File.join(File.dirname(__FILE__), 'files/apache-passenger.config'),
     passenger_conf,
     :render => true
   ) do
     post :install, '/etc/init.d/apache2 restart'
   end
-  
+
   verify { file_contains passenger_conf, RUBY_INSTALL[:passenger_version] }
 end
 
@@ -87,7 +87,7 @@ end
 package :apache_deflate_support do
   deflate_conf = '/etc/apache2/conf.d/deflate.conf'
   transfer(
-    File.join(File.dirname(__FILE__), 'files/apache-mod_deflate.config'), 
+    File.join(File.dirname(__FILE__), 'files/apache-mod_deflate.config'),
     deflate_conf
   ) do
     post :install, 'a2enmod deflate'
@@ -116,6 +116,6 @@ EOL
     post :install, 'a2enmod expires'
     post :install, '/etc/init.d/apache2 restart'
   end
-  
+
   verify { file_contains apache_conf, "Passenger-stack-expires"}
 end

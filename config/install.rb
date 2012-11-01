@@ -57,7 +57,7 @@ deployment do
   end
 end
 
-# Depend on a specific version of sprinkle 
+# Depend on a specific version of sprinkle
 begin
   gem 'sprinkle', ">= 0.4.2"
 rescue Gem::LoadError
